@@ -1,8 +1,9 @@
-from django.conf.urls import url
+from django.conf.urls import url, include
 from django.views.generic import RedirectView
 from django.contrib.staticfiles.views import serve
 from django.conf import settings
 from django.http import JsonResponse
+from .views import urlpatterns
 
 
 def index(request):
@@ -10,8 +11,9 @@ def index(request):
 
 
 urlpatterns = [
-    url(r'^api/hello_world', index, name='index'),
+    url(r'^api/', include(urlpatterns)),
 ]
+
 
 if settings.DEBUG:
     urlpatterns += [
