@@ -1,4 +1,4 @@
-"""__project_name__ URL Configuration
+"""{{cookiecutter.project_name}} URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/2.0/topics/http/urls/
@@ -20,6 +20,6 @@ from django.contrib import admin
 admin.autodiscover()
 
 urlpatterns = [
-    url(r'^', include('__app_name__.urls')),
+    url(r'^', include('{{cookiecutter.app_name}}.urls')),
     url(r'^admin/', admin.site.urls),
 ]

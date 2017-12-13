@@ -2,4 +2,4 @@ from django.apps import AppConfig
 
 
 class AppNameConfig(AppConfig):
-    name = '__app_name__'
+    name = '{{cookiecutter.app_name}}'
