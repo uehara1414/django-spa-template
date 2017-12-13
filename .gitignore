@@ -103,3 +103,4 @@ ENV/
 .idea/
 bower_components/
 *.sqlite3
+/static/
