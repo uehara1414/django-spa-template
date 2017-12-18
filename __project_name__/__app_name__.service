@@ -1,0 +1,10 @@
+[Unit]
+Description={{cookiecutter.app_name}} gunicorn daemon
+
+[Service]
+Type=simple
+User={{cookiecutter.user}}
+ExecStart={{cookiecutter.project_path}}/run_gunicorn.sh
+
+[Install]
+WantedBy=multi-user.target
