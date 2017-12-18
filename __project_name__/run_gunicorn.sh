@@ -1,7 +1,7 @@
 #!/bin/bash
 
 NAME="{{cookiecutter.app_name}}"
-DJANGODIR={{cookiecutter.project_path}}
+DJANGODIR={{cookiecutter.project_root}}
 USER=uehara1414
 GROUP=uehara1414
 NUM_WORKERS=1
