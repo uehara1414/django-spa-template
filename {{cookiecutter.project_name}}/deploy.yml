@@ -1,0 +1,59 @@
+- hosts: all
+  remote_user: {{cookiecutter.user}}
+  vars:
+  tasks:
+    - git:
+        repo: {{cookiecutter.repo_path}}
+        dest: {{cookiecutter.project_root}}
+        version: HEAD
+
+    - name: copy .env
+      copy:
+        src: .env.prod
+        dest: {{cookiecutter.project_root}}/.env
+
+    - name: copy nginx conf
+      copy:
+        src: {{cookiecutter.app_name}}.conf
+        dest: /etc/nginx/conf.d/{{cookiecutter.app_name}}.conf
+
+    - become: yes
+      service:
+        name: nginx
+        state: restarted
+
+    - copy:
+        src: {{cookiecutter.app_name}}.service
+        dest: /usr/lib/systemd/system/{{cookiecutter.app_name}}.service
+
+    - copy:
+        src: run_gunicorn.sh
+        dest: {{cookiecutter.project_root}}/run_gunicorn.sh
+        mode: 0755
+
+    - become: yes
+      name: daemon-reload
+      shell: systemctl daemon-reload
+
+    - name: aikatsu
+      become: yes
+      service:
+        name: aikatsu
+        state: restarted
+
+    - name: bower install
+      bower:
+        path: {{cookiecutter.project_root}}/{{cookiecutter.app_name}}/static/
+
+    - name: pipenv install
+      raw: "cd {{cookiecutter.project_root}} && pipenv install"
+
+    - name: django migrate
+      command: pipenv run ./manage.py migrate
+      args:
+        chdir: {{cookiecutter.project_root}}
+
+    - name: django collectstatic
+      command: pipenv run ./manage.py collectstatic --no-input
+      args:
+        chdir: {{cookiecutter.project_root}}
