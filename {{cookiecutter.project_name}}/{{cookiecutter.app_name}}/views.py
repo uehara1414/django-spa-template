@@ -11,5 +11,5 @@ def hello_world(request):
 
 
 urlpatterns = [
-    url(r'parse', hello_world)
+    url(r'', hello_world)
 ]

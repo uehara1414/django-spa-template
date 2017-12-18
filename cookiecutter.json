@@ -1,4 +1,9 @@
 {
   "project_name": "project",
-  "app_name": "app_name"
+  "app_name": "app_name",
+  "domain": "uehaland.net",
+  "port": "8000",
+  "project_path": "/var/share/sample",
+  "user": "uehara1414",
+  "repo_path": "https://github.com/uehara1414/hoge.git"
 }
