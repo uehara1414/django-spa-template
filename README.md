@@ -9,7 +9,7 @@ Django and SPA template
 
 ## install
 ```commandline
-cookiecutter https://github.com/uehara1414/django-spa-template project_name=__project_name__ app_name=__app_name__ --no-input
+cookiecutter https://github.com/uehara1414/django-spa-template
 cd __project_name__
 pipenv install
 ```
