@@ -24,7 +24,7 @@ def is_ignore_dir(dirpath):
 
 
 def main():
-    for dirpath, dirnames, filenames in os.walk('.'):
+    for dirpath, dirnames, filenames in list(os.walk('.'))[:]:
         if is_ignore_dir(dirpath):
             continue
 
