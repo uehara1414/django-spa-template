@@ -1,24 +1,21 @@
 - hosts: all
   remote_user: {{cookiecutter.user}}
   vars:
-    repo_path: {{cookiecutter.repo_path}}
-    project_root: {{cookiecutter.project_root}}
-    app_name: {{cookiecutter.app_name}}
   tasks:
     - git:
-        repo: "{{repo_path}}"
-        dest: "{{project_root}}"
+        repo: {{cookiecutter.repo_path}}
+        dest: {{cookiecutter.project_root}}
         version: HEAD
 
     - name: copy .env
       copy:
         src: .env.prod
-        dest: "{{ project_root }}/.env"
+        dest: {{cookiecutter.project_root}}/.env
 
     - name: copy nginx conf
       copy:
-        src: "{{app_name}}.conf"
-        dest: "/etc/nginx/conf.d/{{app_name}}.conf"
+        src: {{cookiecutter.app_name}}.conf
+        dest: /etc/nginx/conf.d/{{cookiecutter.app_name}}.conf
 
     - become: yes
       service:
@@ -26,12 +23,12 @@
         state: restarted
 
     - copy:
-        src: "{{app_name}}.service"
-        dest: "/usr/lib/systemd/system/{{app_name}}.service"
+        src: {{cookiecutter.app_name}}.service
+        dest: /usr/lib/systemd/system/{{cookiecutter.app_name}}.service
 
     - copy:
         src: run_gunicorn.sh
-        dest: "{{project_root}}/run_gunicorn.sh"
+        dest: {{cookiecutter.project_root}}/run_gunicorn.sh
         mode: 0755
 
     - become: yes
@@ -46,17 +43,17 @@
 
     - name: bower install
       bower:
-        path: "{{project_root}}/{{app_name}}/static/"
+        path: {{cookiecutter.project_root}}/{{cookiecutter.app_name}}/static/
 
     - name: pipenv install
-      raw: "cd {{project_root}} && pipenv install"
+      raw: "cd {{cookiecutter.project_root}} && pipenv install"
 
     - name: django migrate
       command: pipenv run ./manage.py migrate
       args:
-        chdir: "{{project_root}}"
+        chdir: {{cookiecutter.project_root}}
 
     - name: django collectstatic
       command: pipenv run ./manage.py collectstatic --no-input
       args:
-        chdir: "{{project_root}}"
+        chdir: {{cookiecutter.project_root}}
