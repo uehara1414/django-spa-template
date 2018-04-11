@@ -12,7 +12,7 @@
         src: .env.prod
         dest: {{cookiecutter.project_root}}/.env
 
-    - name:copy nginx conf
+    - name: copy nginx conf
       become: yes
       copy:
         src: {{cookiecutter.app_name}}.conf
