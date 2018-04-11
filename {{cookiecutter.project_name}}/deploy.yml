@@ -23,7 +23,8 @@
         name: nginx
         state: restarted
 
-    - copy:
+    - become: yes
+      copy:
         src: {{cookiecutter.app_name}}.service
         dest: /usr/lib/systemd/system/{{cookiecutter.app_name}}.service
 
