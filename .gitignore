@@ -100,6 +100,9 @@ ENV/
 # mypy
 .mypy_cache/
 
+# Ansible
+deploy.retry
+
 .idea/
 bower_components/
 *.sqlite3
